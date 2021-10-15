@@ -1,0 +1,513 @@
+local ScreenGui = Instance.new("ScreenGui")
+local main = Instance.new("Frame")
+local label = Instance.new("TextLabel")
+local UICorner = Instance.new("UICorner")
+local flyscript = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local noclipscript = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local silentaimscript = Instance.new("TextButton")
+local UICorner_4 = Instance.new("UICorner")
+local aimlockscript = Instance.new("TextButton")
+local UICorner_5 = Instance.new("UICorner")
+local label_2 = Instance.new("TextLabel")
+local UICorner_6 = Instance.new("UICorner")
+local InfStaminaScript = Instance.new("TextButton")
+local UICorner_7 = Instance.new("UICorner")
+local easteregg = Instance.new("TextLabel")
+local ImageLabel = Instance.new("ImageLabel")
+local UICorner_8 = Instance.new("UICorner")
+local UICorner_9 = Instance.new("UICorner")
+local WalkspeedTistoggle = Instance.new("TextButton")
+local UICorner_10 = Instance.new("UICorner")
+local Bank = Instance.new("TextButton")
+local UICorner_11 = Instance.new("UICorner")
+local DB = Instance.new("TextButton")
+local UICorner_12 = Instance.new("UICorner")
+local GunStore = Instance.new("TextButton")
+local UICorner_13 = Instance.new("UICorner")
+local Rev = Instance.new("TextButton")
+local UICorner_14 = Instance.new("UICorner")
+local label_3 = Instance.new("TextLabel")
+local UICorner_15 = Instance.new("UICorner")
+local Fov = Instance.new("TextButton")
+local UICorner_16 = Instance.new("UICorner")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+
+main.Name = "main"
+main.Parent = ScreenGui
+main.AnchorPoint = Vector2.new(0, 1)
+main.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
+main.Position = UDim2.new(0.470358908, 0, 0.959509194, 0)
+main.Size = UDim2.new(0, 651, 0, 346)
+main.Active = true
+main.Draggable = true
+
+label.Name = "label"
+label.Parent = main
+label.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
+label.BackgroundTransparency = 1.000
+label.Position = UDim2.new(0.20815219, 0, 0.0210824423, 0)
+label.Size = UDim2.new(0, 221, 0, 42)
+label.Font = Enum.Font.SciFi
+label.Text = "floppaware.exe │errors, 3ditz, iorain"
+label.TextColor3 = Color3.fromRGB(255, 255, 255)
+label.TextSize = 31.000
+
+UICorner.CornerRadius = UDim.new(0, 20)
+UICorner.Parent = label
+
+flyscript.Name = "flyscript"
+flyscript.Parent = main
+flyscript.BackgroundColor3 = Color3.fromRGB(200, 151, 138)
+flyscript.Position = UDim2.new(0.0167250149, 0, 0.192948759, 0)
+flyscript.Size = UDim2.new(0, 81, 0, 50)
+flyscript.Font = Enum.Font.Cartoon
+flyscript.Text = "Fly (X)"
+flyscript.TextColor3 = Color3.fromRGB(255, 255, 255)
+flyscript.TextSize = 22.000
+flyscript.MouseButton1Down:connect(function()
+	flyscript.MouseButton1Down:connect(function()
+		repeat wait() 
+		until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Head") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid") 
+		local mouse = game.Players.LocalPlayer:GetMouse() 
+		repeat wait() until mouse
+		local plr = game.Players.LocalPlayer 
+		local torso = plr.Character.Head 
+		local flying = false
+		local deb = true 
+		local ctrl = {f = 0, b = 0, l = 0, r = 0} 
+		local lastctrl = {f = 0, b = 0, l = 0, r = 0} 
+		local maxspeed = 250 
+		local speed = 60 
+
+		function Fly() 
+			local bg = Instance.new("BodyGyro", torso) 
+			bg.P = 9e4 
+			bg.maxTorque = Vector3.new(9e9, 9e9, 9e9) 
+			bg.cframe = torso.CFrame 
+			local bv = Instance.new("BodyVelocity", torso) 
+			bv.velocity = Vector3.new(0,0.1,0) 
+			bv.maxForce = Vector3.new(9e9, 9e9, 9e9) 
+			repeat wait() 
+				plr.Character.Humanoid.PlatformStand = true 
+				if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then 
+					speed = speed+.5+(speed/maxspeed) 
+					if speed > maxspeed then 
+						speed = maxspeed 
+					end 
+				elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then 
+					speed = speed-1 
+					if speed < 0 then 
+						speed = 0 
+					end 
+				end 
+				if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then 
+					bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed 
+					lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r} 
+				elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then 
+					bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed 
+				else 
+					bv.velocity = Vector3.new(0,0.1,0) 
+				end 
+				bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0) 
+			until not flying 
+			ctrl = {f = 0, b = 0, l = 0, r = 0} 
+			lastctrl = {f = 0, b = 0, l = 0, r = 0} 
+			speed = 1000 
+			bg:Destroy() 
+			bv:Destroy() 
+			plr.Character.Humanoid.PlatformStand = false 
+		end 
+		mouse.KeyDown:connect(function(key) 
+			if key:lower() == "x" then 
+				if flying then flying = false 
+				else 
+					flying = true 
+					Fly() 
+				end 
+			elseif key:lower() == "w" then 
+				ctrl.f = 1 
+			elseif key:lower() == "s" then 
+				ctrl.b = -1 
+			elseif key:lower() == "a" then 
+				ctrl.l = -1 
+			elseif key:lower() == "d" then 
+				ctrl.r = 1 
+			end 
+		end) 
+		mouse.KeyUp:connect(function(key) 
+			if key:lower() == "w" then 
+				ctrl.f = 0 
+			elseif key:lower() == "s" then 
+				ctrl.b = 0 
+			elseif key:lower() == "a" then 
+				ctrl.l = 0 
+			elseif key:lower() == "d" then 
+				ctrl.r = 0 
+			end 
+		end)
+		Fly()
+	end)
+end)
+
+UICorner_2.CornerRadius = UDim.new(0, 20)
+UICorner_2.Parent = flyscript
+
+noclipscript.Name = "noclipscript"
+noclipscript.Parent = main
+noclipscript.BackgroundColor3 = Color3.fromRGB(200, 151, 138)
+noclipscript.Position = UDim2.new(0.521264613, 0, 0.192948714, 0)
+noclipscript.Size = UDim2.new(0, 128, 0, 50)
+noclipscript.Font = Enum.Font.Cartoon
+noclipscript.Text = "Noclip (hold v)"
+noclipscript.TextColor3 = Color3.fromRGB(255, 255, 255)
+noclipscript.TextSize = 22.000
+noclipscript.MouseButton1Down:connect(function()
+	game:getService("RunService"):BindToRenderStep("",0,function()
+		if not game.Players.LocalPlayer.Character:findFirstChildOfClass("Humanoid") then return end
+		if game:getService("UserInputService"):IsKeyDown(Enum.KeyCode.V) then
+			game.Players.LocalPlayer.Character:findFirstChildOfClass("Humanoid"):ChangeState(11)
+		end
+	end)
+end)
+
+UICorner_3.CornerRadius = UDim.new(0, 20)
+UICorner_3.Parent = noclipscript
+
+silentaimscript.Name = "silentaimscript"
+silentaimscript.Parent = main
+silentaimscript.BackgroundColor3 = Color3.fromRGB(200, 151, 138)
+silentaimscript.Position = UDim2.new(0.153006241, 0, 0.193760395, 0)
+silentaimscript.Size = UDim2.new(0, 105, 0, 50)
+silentaimscript.Font = Enum.Font.Cartoon
+silentaimscript.Text = "Silent Aim"
+silentaimscript.TextColor3 = Color3.fromRGB(254, 254, 254)
+silentaimscript.TextSize = 22.000
+silentaimscript.MouseButton1Down:connect(function()
+
+
+	local ScreenGui = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local TextLabel = Instance.new("TextLabel")
+	local TextButton = Instance.new("TextButton")
+
+
+
+	ScreenGui.Parent = game.CoreGui
+
+
+	Frame.Parent = ScreenGui
+	Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	Frame.Position = UDim2.new(0.250576496, 0, 0.200000003, 0)
+	Frame.Size = UDim2.new(0, 171, 0, 174)
+	Frame.Draggable = true
+	Frame.Active = true
+	Frame.Visible = true
+
+	TextLabel.Parent = Frame
+	TextLabel.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	TextLabel.Size = UDim2.new(0, 171, 0, 37)
+	TextLabel.Font = Enum.Font.SourceSans
+	TextLabel.Text = "Moat"
+	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.TextScaled = true
+	TextLabel.TextSize = 14.000
+	TextLabel.TextWrapped = true
+
+	TextButton.Parent = Frame
+	TextButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	TextButton.Position = UDim2.new(0.0760233924, 0, 0.505747139, 0)
+	TextButton.Size = UDim2.new(0, 142, 0, 47)
+	TextButton.Font = Enum.Font.SourceSans
+	TextButton.Text = "Silent aim"
+	TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextButton.TextScaled = true
+	TextButton.TextSize = 14.000
+	TextButton.TextWrapped = true
+	TextButton.MouseButton1Down:connect(function()
+		loadstring(game:HttpGet("https://pastebin.com/raw/8J5R74fT"))()
+	end)
+end)
+
+UICorner_4.CornerRadius = UDim.new(0, 20)
+UICorner_4.Parent = silentaimscript
+
+aimlockscript.Name = "aimlockscript"
+aimlockscript.Parent = main
+aimlockscript.BackgroundColor3 = Color3.fromRGB(200, 151, 138)
+aimlockscript.Position = UDim2.new(0.304115683, 0, 0.387846678, 0)
+aimlockscript.Size = UDim2.new(0, 127, 0, 49)
+aimlockscript.Font = Enum.Font.Cartoon
+aimlockscript.Text = "God (cant hit)"
+aimlockscript.TextColor3 = Color3.fromRGB(255, 255, 255)
+aimlockscript.TextSize = 22.000
+aimlockscript.MouseButton1Down:connect(function()
+	local Client = game:GetService"Players".LocalPlayer
+
+	function Godmode()
+		local Attacking = Client.Character:FindFirstChild"BodyEffects".Attacking
+
+		if Attacking then
+			Attacking:Destroy()
+		end
+	end
+	Godmode()
+
+	Client.CharacterAdded:Connect(function()
+		wait(1)
+
+		Godmode()
+	end)
+end)
+
+
+UICorner_5.CornerRadius = UDim.new(0, 20)
+UICorner_5.Parent = aimlockscript
+
+label_2.Name = "label"
+label_2.Parent = main
+label_2.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
+label_2.BackgroundTransparency = 1.000
+label_2.Position = UDim2.new(0.832162917, 0, -0.116280004, 0)
+label_2.Size = UDim2.new(0, 137, 0, 211)
+label_2.Font = Enum.Font.SciFi
+label_2.Text = "だ\\n"
+label_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+label_2.TextSize = 81.000
+
+UICorner_6.CornerRadius = UDim.new(0, 20)
+UICorner_6.Parent = label_2
+
+InfStaminaScript.Name = "InfStaminaScript"
+InfStaminaScript.Parent = main
+InfStaminaScript.BackgroundColor3 = Color3.fromRGB(200, 151, 138)
+InfStaminaScript.Position = UDim2.new(0.326585323, 0, 0.191980258, 0)
+InfStaminaScript.Size = UDim2.new(0, 113, 0, 50)
+InfStaminaScript.Font = Enum.Font.Cartoon
+InfStaminaScript.Text = "InfStamina"
+InfStaminaScript.TextColor3 = Color3.fromRGB(248, 248, 248)
+InfStaminaScript.TextSize = 23.000
+InfStaminaScript.MouseButton1Down:connect(function()
+	local Players = game:GetService"Players";
+	local Client = Players.LocalPlayer
+
+	function InfiniteStamina()
+		local BodyEffects = Client.Character:WaitForChild"BodyEffects";
+		local Defense, Movement, Reload = BodyEffects:WaitForChild"Defense", BodyEffects:WaitForChild"Movement", BodyEffects:WaitForChild"Reload"
+
+		while wait() do
+			Reload.Value = false
+			Defense.Value = 9e9
+
+			for _, v in next, Movement:GetChildren() do
+				if v then
+					v:Destroy()
+				end
+			end
+		end
+	end
+	InfiniteStamina()
+end)
+
+UICorner_7.CornerRadius = UDim.new(0, 20)
+UICorner_7.Parent = InfStaminaScript
+
+easteregg.Name = "easter egg"
+easteregg.Parent = main
+easteregg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+easteregg.BackgroundTransparency = 1.000
+easteregg.Position = UDim2.new(-0.000575631857, 0, 0.843659103, 0)
+easteregg.Size = UDim2.new(0, 200, 0, 50)
+easteregg.Font = Enum.Font.SciFi
+easteregg.Text = "kiss kiss iorain#0001"
+easteregg.TextColor3 = Color3.fromRGB(255, 255, 255)
+easteregg.TextSize = 14.000
+
+ImageLabel.Parent = main
+ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageLabel.Position = UDim2.new(0.745879412, 0, 0.279653907, 0)
+ImageLabel.Size = UDim2.new(0, 141, 0, 121)
+ImageLabel.Image = "http://www.roblox.com/asset/?id=7391376815"
+
+UICorner_8.CornerRadius = UDim.new(0, 20)
+UICorner_8.Parent = ImageLabel
+
+UICorner_9.CornerRadius = UDim.new(0, 30)
+UICorner_9.Parent = main
+
+WalkspeedTistoggle.Name = "Walkspeed (T is toggle)"
+WalkspeedTistoggle.Parent = main
+WalkspeedTistoggle.BackgroundColor3 = Color3.fromRGB(200, 151, 138)
+WalkspeedTistoggle.Position = UDim2.new(0.0159438644, 0, 0.387846678, 0)
+WalkspeedTistoggle.Size = UDim2.new(0, 176, 0, 48)
+WalkspeedTistoggle.Font = Enum.Font.Cartoon
+WalkspeedTistoggle.Text = "Speed (T is toggle)"
+WalkspeedTistoggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+WalkspeedTistoggle.TextSize = 22.000
+WalkspeedTistoggle.MouseButton1Down:connect(function()
+	pcall(function()
+
+		local Speed = 5
+		local SpeedHack = true
+		local RunService = game:GetService("RunService")
+		local UserInputService = game:GetService("UserInputService")
+		local Player = game:GetService("Players").LocalPlayer
+
+		local function SpeedHackLoop()
+			coroutine.resume(coroutine.create(function()
+				RunService.RenderStepped:Connect(function()
+					local Character = Player.Character
+					local Humanoid = Character and Character:FindFirstChildWhichIsA("Humanoid")
+					if SpeedHack and Character and Humanoid and Humanoid.Parent then
+						Character:TranslateBy(Humanoid.MoveDirection / Speed)
+					end
+				end)
+			end)) 
+		end
+
+		UserInputService.InputBegan:Connect(function(Key)
+			if Key.KeyCode == Enum.KeyCode.T then
+				if SpeedHack == false then
+					SpeedHack = true
+				else
+					SpeedHack = false
+				end
+			elseif Key.KeyCode == Enum.KeyCode.Eight then
+				if Speed < 6 then
+					Speed = Speed + 1
+				end
+			elseif Key.KeyCode == Enum.KeyCode.Nine then
+				if Speed > 2 then
+					Speed = Speed - 1
+				end
+			end
+		end)
+
+		SpeedHackLoop()
+
+	end)
+end)
+
+
+UICorner_10.CornerRadius = UDim.new(0, 20)
+UICorner_10.Parent = WalkspeedTistoggle
+
+Bank.Name = "Bank"
+Bank.Parent = main
+Bank.BackgroundColor3 = Color3.fromRGB(200, 151, 138)
+Bank.Position = UDim2.new(0.367530465, 0, 0.724740565, 0)
+Bank.Size = UDim2.new(0, 100, 0, 45)
+Bank.Font = Enum.Font.Cartoon
+Bank.Text = "Bank"
+Bank.TextColor3 = Color3.fromRGB(248, 248, 248)
+Bank.TextSize = 23.000
+Bank.MouseButton1Down:connect(function()
+	local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+	local location = CFrame.new(-433.46167, 34.843502, -284.619873, -0.999996424, 0.0026759801, 0, 0.0026759801, 0.999996424, 0, 0, 0, -1)
+	local humanoid = game.Players.LocalPlayer.Character.Humanoid
+	humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	wait(0.1)
+	pl.CFrame = location
+end)
+
+
+UICorner_11.CornerRadius = UDim.new(0, 20)
+UICorner_11.Parent = Bank
+
+DB.Name = "DB"
+DB.Parent = main
+DB.BackgroundColor3 = Color3.fromRGB(200, 151, 138)
+DB.Position = UDim2.new(0.537184596, 0, 0.724740565, 0)
+DB.Size = UDim2.new(0, 70, 0, 45)
+DB.Font = Enum.Font.Cartoon
+DB.Text = "DB"
+DB.TextColor3 = Color3.fromRGB(248, 248, 248)
+DB.TextSize = 23.000
+DB.MouseButton1Down:connect(function()
+	local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+	local location = CFrame.new(-868.924438, -35.5491982, -523.849976, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+	local humanoid = game.Players.LocalPlayer.Character.Humanoid
+	humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	wait(0.1)
+	pl.CFrame = location
+end)
+
+UICorner_12.CornerRadius = UDim.new(0, 20)
+UICorner_12.Parent = DB
+
+GunStore.Name = "GunStore"
+GunStore.Parent = main
+GunStore.BackgroundColor3 = Color3.fromRGB(200, 151, 138)
+GunStore.Position = UDim2.new(0.655249655, 0, 0.724740565, 0)
+GunStore.Size = UDim2.new(0, 100, 0, 45)
+GunStore.Font = Enum.Font.Cartoon
+GunStore.Text = "Gunstore"
+GunStore.TextColor3 = Color3.fromRGB(248, 248, 248)
+GunStore.TextSize = 23.000
+GunStore.MouseButton1Down:connect(function()
+	local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+	local location = CFrame.new(498.977539, 45.1094513, -629.531189, 1.1920929e-07, 0.000671427639, 0.999999762, 0.000183116586, 0.999999762, -0.000671427639, -1, 0.000183116645, 0)
+	local humanoid = game.Players.LocalPlayer.Character.Humanoid
+	humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	wait(0.1)
+	pl.CFrame = location
+end)
+
+
+UICorner_13.CornerRadius = UDim.new(0, 20)
+UICorner_13.Parent = GunStore
+
+Rev.Name = "Rev"
+Rev.Parent = main
+Rev.BackgroundColor3 = Color3.fromRGB(200, 151, 138)
+Rev.Position = UDim2.new(0.819487691, 0, 0.724740565, 0)
+Rev.Size = UDim2.new(0, 100, 0, 45)
+Rev.Font = Enum.Font.Cartoon
+Rev.Text = "Revolver"
+Rev.TextColor3 = Color3.fromRGB(248, 248, 248)
+Rev.TextSize = 23.000
+Rev.MouseButton1Down:connect(function()
+	local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+	local location = CFrame.new(-638.75, 18.8500004, -118.175011, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+	local humanoid = game.Players.LocalPlayer.Character.Humanoid
+	humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	wait(0.1)
+	pl.CFrame = location
+end)
+
+UICorner_14.CornerRadius = UDim.new(0, 20)
+UICorner_14.Parent = Rev
+
+label_3.Name = "label"
+label_3.Parent = main
+label_3.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
+label_3.BackgroundTransparency = 1.000
+label_3.Position = UDim2.new(0.259341329, 0, 0.856164396, 0)
+label_3.Size = UDim2.new(0, 188, 0, 42)
+label_3.Font = Enum.Font.SciFi
+label_3.Text = "thanks to 3ditz and ethan"
+label_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+label_3.TextSize = 13.000
+
+UICorner_15.CornerRadius = UDim.new(0, 20)
+UICorner_15.Parent = label_3
+
+Fov.Name = "Fov"
+Fov.Parent = main
+Fov.BackgroundColor3 = Color3.fromRGB(200, 151, 138)
+Fov.Position = UDim2.new(0.521264613, 0, 0.383700162, 0)
+Fov.Size = UDim2.new(0, 127, 0, 49)
+Fov.Font = Enum.Font.Cartoon
+Fov.Text = "Fov"
+Fov.TextColor3 = Color3.fromRGB(248, 248, 248)
+Fov.TextSize = 23.000
+Fov.MouseButton1Down:connect(function()
+	workspace.CurrentCamera.FieldOfView = 120
+end)
+
+UICorner_16.CornerRadius = UDim.new(0, 20)
+UICorner_16.Parent = Fov
